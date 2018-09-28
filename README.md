@@ -33,23 +33,23 @@
 
 ```python
 import uuid
-from client import Client
+from client import Client, VMessInbound
 
 # 创建连接
 c = Client("example.com", 8080)
 
 # 上行流量（字节）
 # 若未产生流量或email有误，返回None
-c.user_traffic_uplink('me@example.com')
+c.get_user_traffic_uplink('me@example.com')
 
 # 下行流量（字节）
 # 若未产生流量或email有误，返回None
-c.user_traffic_downlink('me@example.com')
+c.get_user_traffic_downlink('me@example.com')
 
 # 在一个传入连接中添加一个用户（仅支持 VMess）
 # 若用户不存在，抛出EmailExistsError异常
 # 若inbound_tag不存在，抛出InboundNotFoundError异常
-c.add_user('inbound_tag',uuid.uuid4().hex, 'me@example.com', 0, 32)
+c.add_user('inbound_tag', uuid.uuid4().hex, 'me@example.com', 0, 32)
 
 # 在一个传入连接中删除一个用户（仅支持 VMess）
 # 若用户不存在，抛出EmailNotFoundError异常
@@ -66,11 +66,11 @@ vmess = VMessInbound(
             'user_id': uuid.uuid4().hex
         }
     )
-client.add_inbound("inbound_tag", '0.0.0.0', 9002, vmess)
+c.add_inbound("inbound_tag", '0.0.0.0', 9002, vmess)
 
 # 移除传入连接
 # 若inbound_tag不存在，抛出InboundNotFoundError异常
-client.remove_inbound("inbound_tag")
+c.remove_inbound("inbound_tag")
 ```
 
 
