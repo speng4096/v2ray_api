@@ -1,19 +1,20 @@
-import re
+import os
+import sys
+sys.path.append(os.path.dirname(__file__))
 import grpc
-from errors import *
 from grpc._channel import _Rendezvous
-from v2ray.com.core.common.net import port_pb2, address_pb2
-from v2ray.com.core import config_pb2 as core_config_pb2
-from v2ray.com.core.proxy.vmess import account_pb2
-from v2ray.com.core.proxy.vmess.inbound import config_pb2 as vmess_inbound_config_pb2
-from v2ray.com.core.proxy.vmess.outbound import config_pb2 as vmess_outbound_config_pb2
-from v2ray.com.core.common.protocol import user_pb2, server_spec_pb2
-from v2ray.com.core.common.serial import typed_message_pb2
-from v2ray.com.core.app.proxyman import config_pb2 as proxyman_config_pb2
-from v2ray.com.core.app.proxyman.command import command_pb2
-from v2ray.com.core.app.proxyman.command import command_pb2_grpc
-from v2ray.com.core.app.stats.command import command_pb2 as stats_command_pb2
-from v2ray.com.core.app.stats.command import command_pb2_grpc as stats_command_pb2_grpc
+from .errors import *
+from .v2ray.com.core.common.net import port_pb2, address_pb2
+from .v2ray.com.core import config_pb2 as core_config_pb2
+from .v2ray.com.core.proxy.vmess import account_pb2
+from .v2ray.com.core.proxy.vmess.inbound import config_pb2 as vmess_inbound_config_pb2
+from .v2ray.com.core.common.protocol import user_pb2
+from .v2ray.com.core.common.serial import typed_message_pb2
+from .v2ray.com.core.app.proxyman import config_pb2 as proxyman_config_pb2
+from .v2ray.com.core.app.proxyman.command import command_pb2
+from .v2ray.com.core.app.proxyman.command import command_pb2_grpc
+from .v2ray.com.core.app.stats.command import command_pb2 as stats_command_pb2
+from .v2ray.com.core.app.stats.command import command_pb2_grpc as stats_command_pb2_grpc
 
 
 def to_typed_message(message):
@@ -202,19 +203,3 @@ class Client(object):
                 raise InboundNotFoundError(details, tag)
             else:
                 raise V2RayError(details)
-
-
-if __name__ == '__main__':
-    client = Client("v0.local", 14080)
-    print("traffic uplink origin:", client.get_user_traffic_downlink('123@gmail.com'))
-    print("traffic uplink detour:", client.get_user_traffic_downlink('123@ttt.com'))
-    vmess = VMessInbound(
-        {
-            'email': '123@aaa.com',
-            'level': 0,
-            'alter_id': 16,
-            'user_id': '2aff40ea95f44577b3863734d33e9fa9'
-        }
-    )
-    # client.add_inbound("test", '0.0.0.0', 9002, vmess)
-    client.remove_inbound("test")
