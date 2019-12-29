@@ -3,18 +3,18 @@ import sys
 sys.path.append(os.path.dirname(__file__))
 import grpc
 from grpc._channel import _Rendezvous
-from .errors import *
-from .v2ray.com.core.common.net import port_pb2, address_pb2
-from .v2ray.com.core import config_pb2 as core_config_pb2
-from .v2ray.com.core.proxy.vmess import account_pb2
-from .v2ray.com.core.proxy.vmess.inbound import config_pb2 as vmess_inbound_config_pb2
-from .v2ray.com.core.common.protocol import user_pb2
-from .v2ray.com.core.common.serial import typed_message_pb2
-from .v2ray.com.core.app.proxyman import config_pb2 as proxyman_config_pb2
-from .v2ray.com.core.app.proxyman.command import command_pb2
-from .v2ray.com.core.app.proxyman.command import command_pb2_grpc
-from .v2ray.com.core.app.stats.command import command_pb2 as stats_command_pb2
-from .v2ray.com.core.app.stats.command import command_pb2_grpc as stats_command_pb2_grpc
+from errors import *
+from v2ray.com.core.common.net import port_pb2, address_pb2
+from v2ray.com.core import config_pb2 as core_config_pb2
+from v2ray.com.core.proxy.vmess import account_pb2
+from v2ray.com.core.proxy.vmess.inbound import config_pb2 as vmess_inbound_config_pb2
+from v2ray.com.core.common.protocol import user_pb2
+from v2ray.com.core.common.serial import typed_message_pb2
+from v2ray.com.core.app.proxyman import config_pb2 as proxyman_config_pb2
+from v2ray.com.core.app.proxyman.command import command_pb2
+from v2ray.com.core.app.proxyman.command import command_pb2_grpc
+from v2ray.com.core.app.stats.command import command_pb2 as stats_command_pb2
+from v2ray.com.core.app.stats.command import command_pb2_grpc as stats_command_pb2_grpc
 
 
 def to_typed_message(message):
